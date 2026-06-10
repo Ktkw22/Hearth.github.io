@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/chart.js)"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏋️ Fitness Tracker</h1>
+        </header>
+        <!-- ฟอร์มบันทึกการออกกำลังกาย -->
+        <section class="input-section">
+            <h2>บันทึกการออกกำลังกาย</h2>
+            <form id="workout-form">
+                <div class="form-group">
+                    <label for="date">วันที่</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">ประเภท</label>
+                    <select id="type" required>
+                        <option value="">เลือกประเภท</option>
+                        <option value="running">วิ่ง</option>
+                        <option value="cycling">ปั่นจักรยาน</option>
+                        <option value="swimming">ว่ายน้ำ</option>
+                        <option value="weight">ยกน้ำหนัก</option>
+                        <option value="yoga">โยคะ</option>
+                        <option value="other">อื่นๆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="duration">ระยะเวลา (นาที)</label>
+                    <input type="number" id="duration" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="calories">แคลอรี่ที่เผาผลาญ</label>
+                    <input type="number" id="calories" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="distance">ระยะทาง (กม.)</label>
+                    <input type="number" id="distance" min="0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="notes">บันทึกเพิ่มเติม</label>
+                    <textarea id="notes" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">บันทึก</button>
+            </form>
+        </section>
+        <!-- สถิติสรุป -->
+        <section class="stats-section">
+            <h2>สถิติภาพรวม</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="total-workouts">0</span>
+                    <span class="stat-label">ครั้งทั้งหมด</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="total-duration">0</span>
+                    <span class="stat-label">นาทีทั้งหมด</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="total-calories">0</span>
+                    <span class="stat-label">แคลอรี่เผาผลาญ</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="total-distance">0</span>
+                    <span class="stat-label">กม. ทั้งหมด</span>
+                </div>
+            </div>
+        </section>
+        <!-- กราฟวิเคราะห์ -->
+        <section class="charts-section">
+            <h2>วิเคราะห์ข้อมูล</h2>
+            <div class="chart-container">
+                <canvas id="weekly-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="type-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="progress-chart"></canvas>
+            </div>
+        </section>
+        <!-- ประวัติการออกกำลังกาย -->
+        <section class="history-section">
+            <h2>ประวัติ</h2>
+            <div class="filter-bar">
+                <select id="filter-type">
+                    <option value="all">ทุกประเภท</option>
+                    <option value="running">วิ่ง</option>
+                    <option value="cycling">ปั่นจักรยาน</option>
+                    <option value="swimming">ว่ายน้ำ</option>
+                    <option value="weight">ยกน้ำหนัก</option>
+                    <option value="yoga">โยคะ</option>
+                </select>
+                <select id="filter-period">
+                    <option value="7">7 วันล่าสุด</option>
+                    <option value="30">30 วันล่าสุด</option>
+                    <option value="90">3 เดือน</option>
+                    <option value="all">ทั้งหมด</option>
+                </select>
+            </div>
+            <div id="workout-list"></div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>
